@@ -1,5 +1,6 @@
 package com.cloudchef.greymobilegithubtask.data.remote.dto
 
+import com.cloudchef.greymobilegithubtask.domain.model.GithubUserModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -74,4 +75,16 @@ data class GithubUserModelDto(
 
     @SerialName("updated_at")
     val updatedAt: String
-)
+) {
+    companion object {
+        fun GithubUserModelDto.toDomain (): GithubUserModel {
+            return GithubUserModel(
+                login, id, nodeId, avatarUrl, gravatarId, url, htmlUrl, followersUrl,
+                followingUrl, gistsUrl, starredUrl, subscriptionsUrl, organizationsUrl,
+                reposUrl, eventsUrl, receivedEventsUrl, type, siteAdmin, name, company,
+                blog, location, email, hireable, bio, twitterUsername, publicRepos,
+                publicGists, followers, following, createdAt, updatedAt
+            )
+        }
+    }
+}
