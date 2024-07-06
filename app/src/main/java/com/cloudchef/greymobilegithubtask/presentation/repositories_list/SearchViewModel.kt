@@ -49,13 +49,21 @@ class SearchViewModel@Inject constructor(
                                     user = listings
                                 )
                             }
+                            searchJob?.cancel()
                         }
-                        is Resource.Error -> Unit
+                        is Resource.Error -> {
+                            searchJob?.cancel()
+                        }
                         is Resource.Loading -> {
                             state = state.copy(isLoading = result.isLoading)
                         }
                     }
                 }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        searchJob?.cancel()
     }
 }
