@@ -11,22 +11,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cloudchef.greymobilegithubtask.presentation.BottomNavigation
 import com.cloudchef.greymobilegithubtask.presentation.home.HomeScreen
-import com.cloudchef.greymobilegithubtask.presentation.home.ScreenNav
+import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
 import com.cloudchef.greymobilegithubtask.presentation.repositories_list.SearchScreen
+import com.cloudchef.greymobilegithubtask.presentation.repositories_list.SearchViewModel
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.UserScreen
 import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,30 +46,38 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
-                Scaffold(modifier = Modifier.fillMaxSize(),
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        BottomNavigation(currentScreenId = currentScreen.id) { it
-                            currentScreen = it
-                            navController.navigate(currentScreen.id) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    saveState = false
-                                    inclusive = false
+                        BottomNavigation(
+                            currentScreenId = currentScreen.id,
+                            onItemSelected = { screen ->
+                                currentScreen = screen
+                                navController.navigate(screen.id) {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                        inclusive = false
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
-                        }
-                    }) { innerPadding ->
-
-                    NavHost(navController = navController, startDestination = ScreenNav.Home.id) {
+                        )
+                    }
+                ) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = ScreenNav.Home.id,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
                         composable(ScreenNav.Home.id) {
-                            HomeScreen(modifier = Modifier.padding(innerPadding), navController)
+                            HomeScreen(navController = navController)
                         }
                         composable(ScreenNav.Search.id) {
-                            SearchScreen(modifier = Modifier.padding(innerPadding), navController = navController)
+                            SearchScreen()
                         }
                         composable(ScreenNav.Users.id) {
-                           UserScreen(modifier = Modifier.padding(innerPadding), navController = navController)
+                            UserScreen(navController = navController)
                         }
                     }
                 }

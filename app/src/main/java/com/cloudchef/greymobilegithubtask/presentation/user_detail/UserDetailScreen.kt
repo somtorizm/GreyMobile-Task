@@ -17,11 +17,10 @@ import androidx.navigation.NavController
 
 @Composable
 fun UserScreen(
-    modifier: Modifier,
     navController: NavController,
     viewModel: GithubUserViewModel = hiltViewModel()
 ) {
-    UserScreenView(modifier = modifier
+    UserScreenView(modifier = Modifier
         .padding(horizontal = 20.dp), navController)
 }
 

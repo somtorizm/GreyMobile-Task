@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.ui.theme.CardBackground1
 
@@ -34,6 +35,7 @@ fun TagItem(tag: String) {
     Text(
         text = tag,
         color = Color.Black,
+        maxLines = 1,
         modifier = Modifier
             .background(color = CardBackground1, shape = RoundedCornerShape(8.dp))
             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -53,13 +55,13 @@ fun TagsRow(tags: List<String>) {
 }
 
 @Composable
-fun Header(title: String, subtitle: String, stars: Int, language: String) {
+fun Header(title: String, subtitle: String, stars: Int, language: String, url: String) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.user_card), // Replace with your image resource
+            painter = rememberAsyncImagePainter(url),
             contentDescription = "Profile Image",
             modifier = Modifier
                 .size(30.dp)
@@ -71,8 +73,8 @@ fun Header(title: String, subtitle: String, stars: Int, language: String) {
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = title, fontWeight = FontWeight.Bold)
-            Text(text = subtitle, color = Color.Gray)
+            Text(text = title, fontWeight = FontWeight.Bold, maxLines = 1)
+            Text(text = subtitle, color = Color.Gray, maxLines = 1)
         }
         Spacer(modifier = Modifier.width(8.dp))
 
@@ -97,25 +99,27 @@ fun Header(title: String, subtitle: String, stars: Int, language: String) {
 fun Description(text: String) {
     Text(
         text = text,
-        modifier = Modifier.padding(top = 8.dp)
+        maxLines = 2,
+        modifier = Modifier.padding(top = 8.dp),
     )
 }
 
 @Composable
-fun RepoCard(title: String, subtitle: String, stars: Int, language: String, description: String, tags: List<String>) {
+fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language: String, description: String, tags: List<String>) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp),
+            .height(200.dp)
+            .padding(top = 10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
+            defaultElevation = 1.dp
         )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Header(title = title, subtitle = subtitle, stars = stars, language = language)
+            Header(title = title, subtitle = subtitle, url = url, stars = stars, language = language)
             Spacer(modifier = Modifier.height(10.dp))
             Description(text = description)
             TagsRow(tags = tags)

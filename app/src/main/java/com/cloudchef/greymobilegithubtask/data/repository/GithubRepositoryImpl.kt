@@ -29,13 +29,14 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchRepo(query: String): Flow<Resource<List<GithubRepoModel?>>> {
+    override suspend fun fetchRepo(query: String): Flow<Resource<GithubRepoModel?>> {
         return flow {
             emit(Resource.Loading(true))
 
             val remoteRepoLists = try {
                 val response = githubApi.fetchRepo(query)
-                response.map { it.toDomain() }
+                response.toDomain()
+
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error("Couldn't load data"))
@@ -43,6 +44,10 @@ class GithubRepositoryImpl @Inject constructor(
             } catch (e: HttpException) {
                 e.printStackTrace()
                 emit(Resource.Error("Couldn't load data"))
+                null
+            } catch (e: Exception) {
+                println("Error: ${e.localizedMessage}")
+                emit(Resource.Error("Couldn't load data ${e.message}"))
                 null
             }
             emit(Resource.Success(remoteRepoLists))

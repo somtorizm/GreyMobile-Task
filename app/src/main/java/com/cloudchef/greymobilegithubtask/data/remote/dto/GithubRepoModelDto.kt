@@ -1,12 +1,14 @@
 package com.cloudchef.greymobilegithubtask.data.remote.dto
 
-import com.cloudchef.greymobilegithubtask.data.remote.dto.GithubUserModelDto.Companion.toDomain
+import com.cloudchef.greymobilegithubtask.data.remote.dto.OwnerDto.Companion.toDomain
 import com.cloudchef.greymobilegithubtask.data.remote.dto.RepositoryDto.Companion.toDomain
 import com.cloudchef.greymobilegithubtask.domain.model.GithubRepoModel
+import com.cloudchef.greymobilegithubtask.domain.model.Owner
 import com.cloudchef.greymobilegithubtask.domain.model.Repository
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class GithubRepoModelDto(
     @SerialName("total_count")
     val totalCount: Int,
@@ -31,12 +33,13 @@ data class RepositoryDto(
 
     @SerialName("full_name")
     val fullName: String,
-    val owner: GithubUserModelDto,
+    val owner: OwnerDto,
     val private: Boolean,
 
     @SerialName("html_url")
     val htmlUrl: String,
 
+    val topics: List<String>,
     val description: String? = null,
     val fork: Boolean,
     val url: String,
@@ -78,9 +81,24 @@ data class RepositoryDto(
         fun RepositoryDto.toDomain() : Repository {
             return Repository(id, name, fullName, owner.toDomain(),
                 private, htmlUrl, description, fork, url, createdAt,
-                updatedAt, pushedAt, homepage, size, stargazersCount,
+                updatedAt, pushedAt, homepage, size, topics, stargazersCount,
                 watchersCount, language, forksCount, openIssuesCount,
                 masterBranch, defaultBranch, score )
+        }
+    }
+}
+
+@Serializable
+data class OwnerDto(
+    val login: String,
+    val id: Int,
+
+    @SerialName("avatar_url")
+    val avatarUrl: String
+) {
+    companion object {
+        fun OwnerDto.toDomain(): Owner {
+           return Owner(login, id, avatarUrl)
         }
     }
 }

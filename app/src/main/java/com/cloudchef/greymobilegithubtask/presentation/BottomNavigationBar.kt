@@ -1,6 +1,5 @@
 package com.cloudchef.greymobilegithubtask.presentation
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +14,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,7 +23,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cloudchef.greymobilegithubtask.R
-import com.cloudchef.greymobilegithubtask.presentation.home.ScreenNav
 
 
 @Composable
@@ -30,6 +30,8 @@ fun BottomNavigation(
     currentScreenId:String,
     onItemSelected:(ScreenNav)->Unit
 ) {
+    val currentScreenIdState by rememberUpdatedState(currentScreenId)
+    val onItemSelectedState by rememberUpdatedState(onItemSelected)
     val items = ScreenNav.Items.list
 
     Card(elevation = 10.dp, modifier = Modifier.height(100.dp)) {
@@ -42,8 +44,8 @@ fun BottomNavigation(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items.forEach { item->
-                BottomNavigationItem(item = item, isSelected = item.id == currentScreenId) {
-                    onItemSelected(item)
+                BottomNavigationItem(item = item, isSelected = item.id == currentScreenIdState) {
+                    onItemSelectedState(item)
                 }
             }
         }
@@ -76,12 +78,10 @@ fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()->Unit 
                 tint = contentColor
             )
 
-            AnimatedVisibility(visible = isSelected) {
-                Text(
-                    text = item.title,
-                    color=contentColor
-                )
-            }
+            Text(
+                text = item.title,
+                color=contentColor
+            )
         }
     }
 }

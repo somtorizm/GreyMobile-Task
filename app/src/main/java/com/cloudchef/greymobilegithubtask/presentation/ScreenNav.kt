@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.home
+package com.cloudchef.greymobilegithubtask.presentation
 
 import com.cloudchef.greymobilegithubtask.R
 
@@ -8,9 +8,9 @@ sealed class ScreenNav (
     val icon: Int,
     val unselectedIcon: Int
 ) {
-    data object Home: ScreenNav("home", "Home", R.drawable.home, R.drawable.home_unselected)
+    data object Home: ScreenNav("home", "Home", R.drawable.home, R.drawable.home)
     data object Search: ScreenNav("search", "Search", R.drawable.search_selected, R.drawable.search)
-    data object Users: ScreenNav("user", "User", R.drawable.search_selected, R.drawable.user)
+    data object Users: ScreenNav("user", "User", R.drawable.user_selected, R.drawable.user)
 
     object Items {
         val list = listOf(Home, Search, Users)

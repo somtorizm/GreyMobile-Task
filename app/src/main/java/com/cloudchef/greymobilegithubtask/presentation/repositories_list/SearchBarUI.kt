@@ -25,7 +25,7 @@ import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar() {
+fun SearchBar(querySearch: (query: String) -> Unit) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
     GreyMobileGithubTaskTheme {
@@ -42,7 +42,10 @@ fun SearchBar() {
         ) {
             TextField(
                 value = searchQuery,
-                onValueChange = { searchQuery = it },
+                onValueChange = {
+                    searchQuery = it
+                    querySearch(it.text)
+                                },
                 placeholder = { Text("Search for users...", color = Color.Gray) },
                 leadingIcon = {
                     Icon(
@@ -62,7 +65,9 @@ fun SearchBar() {
             )
 
             Button(
-                onClick = { /* Handle search action */ },
+                onClick = {
+                     querySearch(searchQuery.text)
+                },
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(10.dp),

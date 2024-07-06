@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,23 +22,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.cloudchef.greymobilegithubtask.R
-import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.RepoCard
 
 @Composable
-fun SearchScreen(
-    modifier: Modifier,
-    navController: NavController,
-    viewModel: GithubUserViewModel = hiltViewModel()
-) {
-    SearchScreenView(modifier = modifier
-        .padding(horizontal = 20.dp), navController)
+fun SearchScreen() {
+    SearchScreenView(
+        modifier = Modifier
+        .padding(horizontal = 20.dp))
 }
 
 @Composable
-fun SearchScreenView(modifier: Modifier, navController: NavController) {
+fun SearchScreenView(
+    modifier: Modifier,
+    viewModel: SearchViewModel = hiltViewModel()
+) {
+    val state = rememberLazyListState()
+    val model = viewModel.state
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -52,13 +55,41 @@ fun SearchScreenView(modifier: Modifier, navController: NavController) {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        SearchBar()
+        SearchBar {
+            viewModel.onEvent(SearchEvent.OnSearchQueryChange(it))
+        }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        when {
+            model.isLoading -> {
+                SearchEmptyStateView("Search Github for users")
+            }
+            model.error != null -> {
+                SearchEmptyStateView("An error occurred: ${model.error}")
+            }
+            model.user?.items.isNullOrEmpty() -> {
+                SearchEmptyStateView("We’ve searched the ends of the earth and we’ve not found this user, please try again")
+            }
+            else -> {
+                Spacer(modifier = Modifier.height(40.dp))
 
-        RepoCard(title = "Victor", subtitle = "Android", stars = 20, language = "Vue", description = "Best repo" , tags = listOf("Design System", "Java"))
+                LazyColumn(state = state) {
+                    model.user?.items?.let { repos ->
+                        items(repos, key = { it.id }) { repo ->
+                            RepoCard(
+                                title = repo.name,
+                                subtitle = repo.owner.login,
+                                url = repo.owner.avatarUrl,
+                                stars = repo.stargazersCount,
+                                language = repo.language ?: "",
+                                description = repo.description ?: "",
+                                tags = repo.topics.take(4)
+                            )
+                        }
+                    }
+                }
+            }
+        }
 
-        //SearchEmptyStateView("Search Github for users")
     }
 }
 
