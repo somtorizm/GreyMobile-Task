@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,13 +62,16 @@ fun SearchScreenView(
 
         when {
             model.isLoading -> {
-                SearchEmptyStateView("Search Github for users")
+                SearchEmptyStateView("Searching Github for Repositories")
             }
             model.error != null -> {
                 SearchEmptyStateView("An error occurred: ${model.error}")
             }
-            model.user?.items.isNullOrEmpty() -> {
+            model.user?.items?.isEmpty() == true -> {
                 SearchEmptyStateView("We’ve searched the ends of the earth and we’ve not found this user, please try again")
+            }
+            model.user?.items == null -> {
+                SearchEmptyStateView("Search Github for repositories, issues and pull requests!")
             }
             else -> {
                 Spacer(modifier = Modifier.height(40.dp))
@@ -113,7 +117,7 @@ fun SearchEmptyStateView(message: String) {
             Text(
                 text = message,
                 fontSize = 18.sp,
-                modifier = Modifier
+                textAlign = TextAlign.Center,
             )
         }
     }

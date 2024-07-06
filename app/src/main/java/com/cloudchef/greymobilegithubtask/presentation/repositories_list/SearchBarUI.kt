@@ -44,8 +44,7 @@ fun SearchBar(querySearch: (query: String) -> Unit) {
                 value = searchQuery,
                 onValueChange = {
                     searchQuery = it
-                    querySearch(it.text)
-                                },
+                },
                 placeholder = { Text("Search for users...", color = Color.Gray) },
                 leadingIcon = {
                     Icon(
@@ -66,6 +65,7 @@ fun SearchBar(querySearch: (query: String) -> Unit) {
 
             Button(
                 onClick = {
+
                      querySearch(searchQuery.text)
                 },
                 modifier = Modifier

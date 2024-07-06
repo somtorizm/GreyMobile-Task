@@ -4,11 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -19,10 +21,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.cloudchef.greymobilegithubtask.R
 
 
 @Composable
@@ -53,23 +53,18 @@ fun BottomNavigation(
 }
 
 @Composable
-fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()->Unit ){
-    val primary = colorResource(id = R.color.btn_color)
-    val transparent = androidx.compose.ui.graphics.Color.Transparent
-    val white = androidx.compose.ui.graphics.Color.White
-    val background = if(isSelected) primary else transparent
-    val contentColor = if (isSelected) white else MaterialTheme.colorScheme.onBackground
+fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()-> Unit){
+    val contentColor = if (isSelected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = Modifier
-            .clip(CircleShape)
-            .background(background)
+            .clip(RoundedCornerShape(20.dp))
             .clickable(onClick = onClick)
     ){
-        Row(
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier= Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
 
             Icon(
@@ -77,6 +72,8 @@ fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()->Unit 
                 contentDescription =null,
                 tint = contentColor
             )
+            
+            Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 text = item.title,
