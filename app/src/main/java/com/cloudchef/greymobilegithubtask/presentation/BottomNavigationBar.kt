@@ -1,6 +1,5 @@
-package com.cloudchef.greymobilegithubtask.presentation.home
+package com.cloudchef.greymobilegithubtask.presentation
 
-import android.graphics.Color
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,8 +7,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.cloudchef.greymobilegithubtask.presentation.home.ScreenNav
 
 
 @Composable
@@ -28,29 +30,31 @@ fun BottomNavigation(
 ) {
     val items= ScreenNav.Items.list
 
-    Row(modifier= Modifier
-        .background(MaterialTheme.colorScheme.background)
-        .padding(8.dp)
-        .fillMaxWidth(),
+    Card(elevation = 10.dp, modifier = Modifier.height(100.dp)) {
+        Row(modifier= Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(8.dp)
+            .fillMaxWidth(),
 
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        items.forEach { item->
-            BottomNavigationItem(item = item, isSelected = item.id== currentScreenId) {
-                onItemSelected(item)
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items.forEach { item->
+                BottomNavigationItem(item = item, isSelected = item.id == currentScreenId) {
+                    onItemSelected(item)
+                }
             }
         }
     }
 }
 
 @Composable
-fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean , onClick:()->Unit ){
+fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()->Unit ){
     val primary = MaterialTheme.colorScheme.primary
     val transparent = androidx.compose.ui.graphics.Color.Transparent
+    val white = androidx.compose.ui.graphics.Color.White
     val background = if(isSelected) primary else transparent
-
-    val contentColor=if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
+    val contentColor=if (isSelected) white else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = Modifier
@@ -59,14 +63,13 @@ fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean , onClick:()->Unit
             .clickable(onClick = onClick)
     ){
         Row(
-            modifier=Modifier
-                .padding(12.dp),
+            modifier= Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
 
             Icon(
-                painter = painterResource(item.icon),
+                painter = painterResource(if(isSelected) item.icon else item.unselectedIcon),
                 contentDescription =null,
                 tint = contentColor
             )
