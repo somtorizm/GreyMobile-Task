@@ -26,7 +26,7 @@ fun HomeCard(
         modifier = modifier
             .clickable(onClick = onClick)
             .fillMaxWidth()
-            .height(118.dp),
+            .height(120.dp),
         backgroundColor = backgroundColor,
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp
@@ -40,7 +40,7 @@ fun HomeCard(
                 painter = icon,
                 contentDescription = title,
                 modifier = Modifier
-                    .size(35.dp)
+                    .size(40.dp)
                     .padding(4.dp)
             )
             Text(

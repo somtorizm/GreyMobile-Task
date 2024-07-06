@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,13 +42,20 @@ class MainActivity : ComponentActivity() {
                 var currentScreen by remember { mutableStateOf<ScreenNav>(ScreenNav.Home) }
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
+                LaunchedEffect(navBackStackEntry) {
+                    navBackStackEntry?.destination?.route?.let { route ->
+                        currentScreen = ScreenNav.Items.list.find { it.id == route } ?: ScreenNav.Home
+                    }
+                }
+
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         BottomNavigation(currentScreenId = currentScreen.id) { it
                             currentScreen = it
                             navController.navigate(currentScreen.id) {
                                 popUpTo(navController.graph.startDestinationId) {
-                                    saveState = true
+                                    saveState = false
+                                    inclusive = false
                                 }
                                 launchSingleTop = true
                                 restoreState = true
@@ -55,14 +63,14 @@ class MainActivity : ComponentActivity() {
                         }
                     }) { innerPadding ->
 
-                    NavHost(navController = navController, startDestination = "home") {
-                        composable("home") {
+                    NavHost(navController = navController, startDestination = ScreenNav.Home.id) {
+                        composable(ScreenNav.Home.id) {
                             HomeScreen(modifier = Modifier.padding(innerPadding), navController)
                         }
-                        composable("search") {
+                        composable(ScreenNav.Search.id) {
                             SearchScreen(modifier = Modifier.padding(innerPadding), navController = navController)
                         }
-                        composable("user") {
+                        composable(ScreenNav.Users.id) {
                            UserScreen(modifier = Modifier.padding(innerPadding), navController = navController)
                         }
                     }

@@ -28,7 +28,7 @@ fun BottomNavigation(
     currentScreenId:String,
     onItemSelected:(ScreenNav)->Unit
 ) {
-    val items= ScreenNav.Items.list
+    val items = ScreenNav.Items.list
 
     Card(elevation = 10.dp, modifier = Modifier.height(100.dp)) {
         Row(modifier= Modifier

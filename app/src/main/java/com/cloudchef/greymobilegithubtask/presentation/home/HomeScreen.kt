@@ -26,6 +26,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenView(modifier: Modifier, navController: NavController) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -49,16 +50,20 @@ fun HomeScreenView(modifier: Modifier, navController: NavController) {
         ) {
             HomeCard(
                 title = "Users",
-                icon = painterResource(id = R.drawable.user),
-                onClick = { /* Navigate to Users screen */ },
+                icon = painterResource(id = R.drawable.user_card),
+                onClick = {
+                    navController.navigate(ScreenNav.Users.id)
+                },
                 backgroundColor = colorResource(id = R.color.light_grey),
                 modifier = Modifier.weight(1f)
             )
 
             HomeCard(
                 title = "Repositories",
-                icon = painterResource(id = R.drawable.user),
-                onClick = { /* Navigate to Repositories screen */ },
+                icon = painterResource(id = R.drawable.repo_icon),
+                onClick = {
+                    navController.navigate(ScreenNav.Search.id)
+                          },
                 backgroundColor = colorResource(id = R.color.light_purple),
                 modifier = Modifier.weight(1f)
             )
