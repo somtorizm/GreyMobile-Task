@@ -43,9 +43,10 @@ fun SearchBar(querySearch: (query: String) -> Unit) {
             TextField(
                 value = searchQuery,
                 onValueChange = {
-                    searchQuery = it
-                    querySearch(it.text)
-                                },
+                    if(it.text.isNotBlank()) {
+                        searchQuery = it
+                        querySearch(it.text)
+                    } },
                 placeholder = { Text("Search for users...", color = Color.Gray) },
                 leadingIcon = {
                     Icon(
