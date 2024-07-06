@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
+import com.cloudchef.greymobilegithubtask.presentation.user_detail.RepoCard
 
 @Composable
 fun SearchScreen(
@@ -55,7 +56,9 @@ fun SearchScreenView(modifier: Modifier, navController: NavController) {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        SearchEmptyStateView("Search Github for users")
+        RepoCard(title = "Victor", subtitle = "Android", stars = 20, language = "Vue", description = "Best repo" , tags = listOf("Design System", "Java"))
+
+        //SearchEmptyStateView("Search Github for users")
     }
 }
 
