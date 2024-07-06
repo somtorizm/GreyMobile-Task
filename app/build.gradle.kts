@@ -80,6 +80,7 @@ dependencies {
 
     implementation(libs.kotlin.stdlib)
     implementation (libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.activity.compose)
 

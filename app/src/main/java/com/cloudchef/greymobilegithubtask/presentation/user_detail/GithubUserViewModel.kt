@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cloudchef.greymobilegithubtask.common.Resource
 import com.cloudchef.greymobilegithubtask.domain.repository.GithubRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -24,10 +25,13 @@ class GithubUserViewModel @Inject constructor(
             val result = async { repository.fetchUser("somtorizm") }.await()
 
             when(result) {
-
+                is Resource.Error -> Unit
+                is Resource.Loading -> Unit
+                is Resource.Success -> {
+                    println("Success: ${result.data.toString()}")
+                }
             }
         }
-
 
     }
 

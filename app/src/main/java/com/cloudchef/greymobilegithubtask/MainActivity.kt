@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,8 +22,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val viewModel: GithubUserViewModel = hiltViewModel()
+
             GreyMobileGithubTaskTheme {
+                viewModel.state
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
