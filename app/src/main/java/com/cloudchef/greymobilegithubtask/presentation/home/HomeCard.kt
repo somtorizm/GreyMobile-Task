@@ -8,38 +8,43 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.painter.Painter
 
 @Composable
 fun HomeCard(
     title: String,
-    icon: ImageVector,
-    backgroundColor: Color,
-    onClick: () -> Unit
+    icon: Painter,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
-            .aspectRatio(1f)
-            .clickable(onClick = onClick),
+        modifier = modifier
+            .clickable(onClick = onClick)
+            .fillMaxWidth()
+            .height(118.dp),
         shape = RoundedCornerShape(8.dp),
-        backgroundColor = backgroundColor,
         elevation = 4.dp
     ) {
         Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.padding(start = 38.dp)
         ) {
             Icon(
-                imageVector = icon,
+                painter = icon,
                 contentDescription = title,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier
+                    .size(35.dp)
+                    .padding(4.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = title, fontSize = 16.sp)
+            Text(
+                text = title,
+                fontSize = 16.sp,
+                modifier = Modifier
+            )
         }
     }
 }
