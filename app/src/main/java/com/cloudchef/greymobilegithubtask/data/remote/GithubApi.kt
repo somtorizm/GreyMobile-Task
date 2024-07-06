@@ -2,14 +2,17 @@ package com.cloudchef.greymobilegithubtask.data.remote
 
 import com.cloudchef.greymobilegithubtask.data.remote.dto.GithubRepoModelDto
 import com.cloudchef.greymobilegithubtask.data.remote.dto.GithubUserModelDto
+import okhttp3.ResponseBody
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface GithubApi {
 
-    @GET("/users/")
-    suspend fun fetchUser(username: String): GithubUserModelDto
+    @GET("/users/{username}")
+    suspend fun fetchUser(@Path("username") username: String): GithubUserModelDto
 
-    @GET("/search/repositories/")
-    suspend fun fetchRepo(query: String): List<GithubRepoModelDto>
+    @GET("search/repositories")
+    suspend fun fetchRepo(@Query("q") query: String): List<GithubRepoModelDto>
 
 }

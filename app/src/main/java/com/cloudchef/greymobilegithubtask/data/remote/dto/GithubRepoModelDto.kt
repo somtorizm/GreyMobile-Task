@@ -15,10 +15,12 @@ data class GithubRepoModelDto(
     val incompleteResults: Boolean,
     val items: List<RepositoryDto>
 ) {
-    fun GithubRepoModelDto.toDomain() : GithubRepoModel {
-        return GithubRepoModel(
-            totalCount, incompleteResults, items.map { it.toDomain() }
-        )
+    companion object {
+        fun GithubRepoModelDto.toDomain() : GithubRepoModel {
+            return GithubRepoModel(
+                totalCount, incompleteResults, items.map { it.toDomain() }
+            )
+        }
     }
 }
 
