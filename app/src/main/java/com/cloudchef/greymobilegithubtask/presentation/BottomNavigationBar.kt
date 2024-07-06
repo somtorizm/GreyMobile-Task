@@ -18,8 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.presentation.home.ScreenNav
 
 
@@ -50,11 +52,11 @@ fun BottomNavigation(
 
 @Composable
 fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()->Unit ){
-    val primary = MaterialTheme.colorScheme.primary
+    val primary = colorResource(id = R.color.btn_color)
     val transparent = androidx.compose.ui.graphics.Color.Transparent
     val white = androidx.compose.ui.graphics.Color.White
     val background = if(isSelected) primary else transparent
-    val contentColor=if (isSelected) white else MaterialTheme.colorScheme.onBackground
+    val contentColor = if (isSelected) white else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = Modifier

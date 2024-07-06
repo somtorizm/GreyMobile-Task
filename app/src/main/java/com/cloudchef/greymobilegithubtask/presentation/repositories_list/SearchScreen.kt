@@ -46,5 +46,7 @@ fun SearchScreenView(modifier: Modifier, navController: NavController) {
         )
 
         Spacer(modifier = Modifier.height(40.dp))
+
+        SearchBar()
     }
 }
