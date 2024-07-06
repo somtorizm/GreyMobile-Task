@@ -118,5 +118,9 @@ dependencies {
 
     // Compose-ViewModel
     implementation (libs.androidx.lifecycle.viewmodel.compose)
+    implementation (libs.androidx.lifecycle.runtime.compose)
+
+    //Image-Coil
+    implementation(libs.coil.compose)
 
 }

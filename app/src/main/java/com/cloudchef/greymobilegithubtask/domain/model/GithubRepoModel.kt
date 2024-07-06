@@ -10,7 +10,7 @@ data class Repository(
     val id: Int,
     val name: String,
     val fullName: String,
-    val owner: GithubUserModel,
+    val owner: Owner,
     val private: Boolean,
     val htmlUrl: String,
     val description: String? = null,
@@ -21,6 +21,7 @@ data class Repository(
     val pushedAt: String,
     val homepage: String? = null,
     val size: Int,
+    val topics: List<String>,
     val stargazersCount: Int,
     val watchersCount: Int,
     val language: String? = null,
@@ -29,4 +30,9 @@ data class Repository(
     val masterBranch: String? = null,
     val defaultBranch: String,
     val score: Float
+)
+data class Owner(
+    val login: String,
+    val id: Int,
+    val avatarUrl: String,
 )

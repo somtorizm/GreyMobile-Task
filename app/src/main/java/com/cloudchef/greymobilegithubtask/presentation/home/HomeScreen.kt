@@ -1,6 +1,5 @@
 package com.cloudchef.greymobilegithubtask.presentation.home
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,15 +11,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloudchef.greymobilegithubtask.R
+import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier,
     navController: NavController,
     viewModel: GithubUserViewModel = hiltViewModel()
 ) {
-    HomeScreenView(modifier = modifier
+    HomeScreenView(modifier = Modifier
         .padding(horizontal = 20.dp), navController)
 }
 
