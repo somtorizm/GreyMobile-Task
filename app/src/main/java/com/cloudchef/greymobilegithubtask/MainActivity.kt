@@ -23,9 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import com.cloudchef.greymobilegithubtask.presentation.BottomNavigation
 import com.cloudchef.greymobilegithubtask.presentation.home.HomeScreen
 import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
-import com.cloudchef.greymobilegithubtask.presentation.repositories_list.SearchScreen
-import com.cloudchef.greymobilegithubtask.presentation.repositories_list.SearchViewModel
-import com.cloudchef.greymobilegithubtask.presentation.user_detail.UserScreen
+import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchScreen
+import com.cloudchef.greymobilegithubtask.presentation.search_user.UserScreen
 import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
 

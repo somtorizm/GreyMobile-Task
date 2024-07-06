@@ -1,7 +1,8 @@
-package com.cloudchef.greymobilegithubtask.presentation.user_detail
+package com.cloudchef.greymobilegithubtask.presentation.search_user
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -105,12 +106,13 @@ fun Description(text: String) {
 }
 
 @Composable
-fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language: String, description: String, tags: List<String>) {
+fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language: String, description: String, tags: List<String>, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
-            .padding(top = 10.dp),
+            .padding(top = 10.dp)
+            .clickable { onClick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface
         ),

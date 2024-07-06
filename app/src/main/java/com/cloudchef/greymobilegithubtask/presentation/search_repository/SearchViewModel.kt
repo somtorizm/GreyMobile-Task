@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.repositories_list
+package com.cloudchef.greymobilegithubtask.presentation.search_repository
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

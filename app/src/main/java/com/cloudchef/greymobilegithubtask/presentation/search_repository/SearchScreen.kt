@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.repositories_list
+package com.cloudchef.greymobilegithubtask.presentation.search_repository
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cloudchef.greymobilegithubtask.R
-import com.cloudchef.greymobilegithubtask.presentation.user_detail.RepoCard
+import com.cloudchef.greymobilegithubtask.presentation.search_user.RepoCard
 
 @Composable
 fun SearchScreen() {
@@ -56,7 +56,7 @@ fun SearchScreenView(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        SearchBar {
+        SearchBar("Search for repositories") {
             viewModel.onEvent(SearchEvent.OnSearchQueryChange(it))
         }
 
@@ -77,7 +77,7 @@ fun SearchScreenView(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 LazyColumn(state = state) {
-                    model.user?.items?.let { repos ->
+                    model.user.items.let { repos ->
                         items(repos, key = { it.id }) { repo ->
                             RepoCard(
                                 title = repo.name,
@@ -87,7 +87,9 @@ fun SearchScreenView(
                                 language = repo.language ?: "",
                                 description = repo.description ?: "",
                                 tags = repo.topics.take(4)
-                            )
+                            ) {
+
+                            }
                         }
                     }
                 }
