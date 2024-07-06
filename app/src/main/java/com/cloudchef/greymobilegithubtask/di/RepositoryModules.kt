@@ -1,5 +1,6 @@
 package com.cloudchef.greymobilegithubtask.di
 
+import com.cloudchef.greymobilegithubtask.data.repository.GithubRepositoryImpl
 import com.cloudchef.greymobilegithubtask.domain.repository.GithubRepository
 import dagger.Binds
 import dagger.Module
@@ -13,5 +14,5 @@ abstract class RepositoryModules {
 
     @Binds
     @Singleton
-    abstract fun bindGithubRepository(githubRepositoryImpl: GithubRepository): GithubRepository
+    abstract fun bindGithubRepository(githubRepositoryImpl: GithubRepositoryImpl): GithubRepository
 }
