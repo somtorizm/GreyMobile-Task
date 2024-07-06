@@ -11,12 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 
 @Composable
 fun HomeCard(
     title: String,
     icon: Painter,
+    backgroundColor: Color,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -25,6 +27,7 @@ fun HomeCard(
             .clickable(onClick = onClick)
             .fillMaxWidth()
             .height(118.dp),
+        backgroundColor = backgroundColor,
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp
     ) {
