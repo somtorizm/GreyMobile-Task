@@ -25,6 +25,7 @@ import com.cloudchef.greymobilegithubtask.presentation.home.HomeScreen
 import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchScreen
 import com.cloudchef.greymobilegithubtask.presentation.search_user.UserScreen
+import com.cloudchef.greymobilegithubtask.presentation.user_detail.UserProfileScreen
 import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,6 +78,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(ScreenNav.Users.id) {
                             UserScreen(navController = navController)
+                        }
+                        composable("profile") {
+                            UserProfileScreen()
                         }
                     }
                 }

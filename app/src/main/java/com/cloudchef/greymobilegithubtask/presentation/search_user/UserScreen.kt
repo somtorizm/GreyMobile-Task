@@ -82,7 +82,7 @@ fun UserScreen(
                                 description = "",
                                 tags = listOf(repo.type)
                             ) {
-                                //navController.navigate()
+                                navController.navigate("profile")
                             }
                         }
                     }
