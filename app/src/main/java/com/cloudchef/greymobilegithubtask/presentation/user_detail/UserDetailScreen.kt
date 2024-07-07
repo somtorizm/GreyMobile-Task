@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.cloudchef.greymobilegithubtask.R
+import com.cloudchef.greymobilegithubtask.presentation.home.Title
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchEmptyStateView
 import com.cloudchef.greymobilegithubtask.presentation.search_user.RepoCard
 
@@ -52,11 +53,7 @@ fun UserProfileScreen(navController: NavController,
                 }
             )
 
-            Text(
-                text = "Users",
-                fontSize = 18.sp,
-                modifier = Modifier
-            )
+            Title(title = "Users")
         }
         
         Spacer(modifier = Modifier.height(40.dp))

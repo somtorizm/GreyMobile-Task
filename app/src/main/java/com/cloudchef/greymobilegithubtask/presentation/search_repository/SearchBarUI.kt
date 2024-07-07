@@ -59,7 +59,10 @@ fun SearchBar(textFieldPlaceHolder: String, querySearch: (query: String) -> Unit
                     .border(width = 0.dp, color = Color.Transparent),
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(
-                   containerColor = Color.Transparent
+                   containerColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
                 )
             )
 

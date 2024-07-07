@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(navBackStackEntry) {
                     navBackStackEntry?.destination?.route?.let { route ->
-                        currentScreen = ScreenNav.Items.list.find { it.id == route } ?: ScreenNav.Home
+                        currentScreen = ScreenNav.Items.list.find { it.id == route  } ?: ScreenNav.Users
                     }
                 }
 

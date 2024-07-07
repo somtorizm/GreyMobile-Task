@@ -6,6 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,11 +34,8 @@ fun HomeScreenView(modifier: Modifier, navController: NavController) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Home",
-            fontSize = 18.sp,
-            modifier = Modifier
-        )
+
+        Title(title = "Home")
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -68,4 +66,14 @@ fun HomeScreenView(modifier: Modifier, navController: NavController) {
             )
         }
     }
+}
+
+@Composable
+fun Title(title: String) {
+    Text(
+        text = title,
+        fontSize = 30.sp,
+        modifier = Modifier,
+        fontWeight = FontWeight.Bold
+    )
 }

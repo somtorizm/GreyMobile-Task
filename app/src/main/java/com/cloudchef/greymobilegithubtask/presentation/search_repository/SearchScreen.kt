@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cloudchef.greymobilegithubtask.R
+import com.cloudchef.greymobilegithubtask.presentation.home.Title
 import com.cloudchef.greymobilegithubtask.presentation.search_user.RepoCard
 
 @Composable
@@ -48,11 +49,8 @@ fun SearchScreenView(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Repositories",
-            fontSize = 18.sp,
-            modifier = Modifier
-        )
+
+        Title(title = "Repositories")
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -103,7 +101,7 @@ fun SearchEmptyStateView(message: String, imageId: Int? = R.drawable.search) {
     Box(modifier = Modifier
         .fillMaxSize()) {
         Column (
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center){
 
@@ -111,13 +109,13 @@ fun SearchEmptyStateView(message: String, imageId: Int? = R.drawable.search) {
                 painter = painterResource(id = imageId!!),
                 contentDescription = "No result found,",
                 modifier = Modifier
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.2f)
                     .fillMaxWidth())
 
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = message,
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 textAlign = TextAlign.Center,
             )
         }

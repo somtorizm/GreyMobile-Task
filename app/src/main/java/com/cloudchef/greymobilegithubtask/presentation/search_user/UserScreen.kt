@@ -1,6 +1,5 @@
 package com.cloudchef.greymobilegithubtask.presentation.search_user
 
-import android.os.Bundle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,19 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.cloudchef.greymobilegithubtask.presentation.home.Title
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchBar
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchEmptyStateView
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchEvent
-import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 
 @Composable
 fun UserScreen(
@@ -40,11 +36,7 @@ fun UserScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Users",
-            fontSize = 18.sp,
-            modifier = Modifier
-        )
+        Title(title = "Users")
 
         Spacer(modifier = Modifier.height(40.dp))
 
