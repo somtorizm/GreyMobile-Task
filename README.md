@@ -35,8 +35,6 @@ The project is structured as follows:
 
 
 
-
-
 ## Screens
 ### Home Screen
 - The starting destination of the app.
@@ -72,15 +70,6 @@ The app's design can be found on [Figma](https://www.figma.com/file/JzhqYEnWurXs
 - **App Performance**: Ensure the app performs efficiently.
 - **Error Handling**: Proper handling of network errors (e.g., 404, 500 response codes, and IOExceptions).
 - **Unit Tests**: Implement comprehensive unit tests.
-
-## Nice to Have
-- Additional features or design enhancements.
-- Splash screen during app startup.
-
-## Getting Started
-### Prerequisites
-- Android Studio
-- Knowledge of Kotlin and Jetpack Compose
 
 ### Setup
 1. Clone the repository: `git clone <repository_url>`
