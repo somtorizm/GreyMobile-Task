@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 
 @Composable
@@ -80,5 +81,17 @@ fun BottomNavigationItem(item: ScreenNav, isSelected: Boolean, onClick:()-> Unit
                 color=contentColor
             )
         }
+    }
+}
+
+
+fun navigateToScreen(route: String, navController: NavController) {
+    navController.navigate(route) {
+        popUpTo(navController.graph.startDestinationId) {
+            saveState = true
+            inclusive = false
+        }
+        launchSingleTop = true
+        restoreState = true
     }
 }

@@ -25,6 +25,7 @@ import androidx.navigation.navArgument
 import com.cloudchef.greymobilegithubtask.presentation.BottomNavigation
 import com.cloudchef.greymobilegithubtask.presentation.home.HomeScreen
 import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
+import com.cloudchef.greymobilegithubtask.presentation.navigateToScreen
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchScreen
 import com.cloudchef.greymobilegithubtask.presentation.search_user.UserScreen
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.UserProfileScreen
@@ -55,14 +56,7 @@ class MainActivity : ComponentActivity() {
                             currentScreenId = currentScreen.id,
                             onItemSelected = { screen ->
                                 currentScreen = screen
-                                navController.navigate(screen.id) {
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
-                                        inclusive = false
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
+                                navigateToScreen(currentScreen.id, navController)
                             }
                         )
                     }

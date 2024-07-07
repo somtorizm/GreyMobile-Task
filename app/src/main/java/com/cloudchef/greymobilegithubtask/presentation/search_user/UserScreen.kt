@@ -76,8 +76,7 @@ fun UserScreen(
                                 description = "",
                                 tags = listOf(repo.type)
                             ) {
-                                navController.navigate("profile/$it") {
-                            }
+                                navController.navigate("profile/$it")
                             }
                         }
                     }
