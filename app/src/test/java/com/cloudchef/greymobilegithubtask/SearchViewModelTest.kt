@@ -43,7 +43,7 @@ class SearchViewModelTest {
     }
 
     @Test
-    fun `onEvent with OnSearchQueryChange should update state and trigger search`() = runTest {
+    fun `onEvent Search should update state and trigger search`() = runTest {
         val searchQuery = "kotlin"
         val name = "Victor"
         val list = listOf(
