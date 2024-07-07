@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.ui.theme.CardBackground1
@@ -37,6 +38,7 @@ fun TagItem(tag: String) {
         text = tag,
         color = Color.Black,
         maxLines = 1,
+        fontSize = 10.sp,
         modifier = Modifier
             .background(color = CardBackground1, shape = RoundedCornerShape(8.dp))
             .padding(horizontal = 8.dp, vertical = 4.dp)

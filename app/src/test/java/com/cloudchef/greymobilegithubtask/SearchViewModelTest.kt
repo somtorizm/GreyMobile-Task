@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.cloudchef.greymobilegithubtask
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -13,6 +11,7 @@ import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchV
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -23,6 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SearchViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -73,5 +73,49 @@ class SearchViewModelTest {
         assertEquals(name, viewModel.state.user!!.items[0].name )
         assertEquals(searchQuery, viewModel.state.searchQuery)
         assertEquals(userRepos, viewModel.state.user)
+    }
+
+    @Test
+    fun `onEvent should handle Resource_Loading and update state`() = runTest {
+        val searchQuery = "victor"
+
+        coEvery { repository.fetchRepo(searchQuery.lowercase()) } returns flowOf(
+            Resource.Loading(true)
+        )
+
+        viewModel.onEvent(SearchEvent.OnSearchQueryChange(searchQuery))
+
+        advanceTimeBy(500L)
+        runCurrent()
+
+        coVerify { repository.fetchRepo(searchQuery.lowercase()) }
+        TestCase.assertEquals(searchQuery, viewModel.state.searchQuery)
+        TestCase.assertEquals(true, viewModel.state.isLoading)
+    }
+
+    @Test
+    fun `onEvent should handle Resource_Error and update state`() = runTest {
+        val searchQuery = "kotlin"
+        val errorMessage = "An error occurred"
+
+        coEvery { repository.fetchRepo(searchQuery.lowercase()) } returns flowOf(
+            Resource.Loading(false),
+            Resource.Error(errorMessage)
+        )
+
+        viewModel.onEvent(SearchEvent.OnSearchQueryChange(searchQuery))
+
+        advanceTimeBy(500L)
+        runCurrent()
+
+        coVerify { repository.fetchRepo(searchQuery.lowercase()) }
+        TestCase.assertEquals(searchQuery, viewModel.state.searchQuery)
+        TestCase.assertEquals(null, viewModel.state.user)
+    }
+
+    @Test
+    fun `onCleared should cancel searchJob`() = runTest {
+        viewModel.onCleared()
+        TestCase.assertEquals(null, viewModel.searchJob)
     }
 }

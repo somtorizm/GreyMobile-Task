@@ -20,7 +20,7 @@ class SearchUserViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(SearchUserState())
-    private var searchJob: Job? = null
+    var searchJob: Job? = null
 
     fun onEvent(event: SearchEvent) {
         when(event) {
@@ -62,7 +62,7 @@ class SearchUserViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         searchJob?.cancel()
     }

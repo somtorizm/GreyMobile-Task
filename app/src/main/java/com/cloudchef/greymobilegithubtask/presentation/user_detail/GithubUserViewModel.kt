@@ -82,10 +82,18 @@ class GithubUserViewModel @Inject constructor(
                            searchJob?.cancel()
                        }
                        is Resource.Error -> {
+                           state = state.copy(
+                               isLoading = false,
+                               error = result.message ?: "Unknown error",
+                               usersRepo = null
+                           )
                            searchJob?.cancel()
                        }
                        is Resource.Loading -> {
-                           state = state.copy(isLoading = result.isLoading)
+                           state = state.copy(
+                               isLoading = result.isLoading,
+                               usersRepo = null,
+                               error = null)
                        }
                    }
                }
