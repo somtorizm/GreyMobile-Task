@@ -23,6 +23,20 @@ The project is structured as follows:
 - `viewmodel`: Contains ViewModel classes to handle UI logic and data.
 - `util`: Contains utility classes and functions.
 
+## Screenshots
+
+| Home Screen | Repository Screen | User Screen |
+|-------------|-------------------|-------------|
+| ![Home Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/7a859f9a-7ad1-47bf-a265-26dd9071d1e6) | ![Repository Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/ce022590-2bca-4837-993f-fdb87b1b2bed) | ![User Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/32d9c51b-4ef9-4aa5-8863-f505c1074acb) |
+| ![Home Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/57fc4471-2de0-4462-b91e-deee6f8d8627) | ![Repository Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/132b29cf-58da-4cf4-a7bc-bd763c2ba613) | |
+| | | ![User Screen](https://github.com/somtorizm/GreyMobile-Task/assets/42660335/691e6af2-0b8f-4c34-a13c-4e8c83ea50c3) |
+
+
+
+
+
+
+
 ## Screens
 ### Home Screen
 - The starting destination of the app.
