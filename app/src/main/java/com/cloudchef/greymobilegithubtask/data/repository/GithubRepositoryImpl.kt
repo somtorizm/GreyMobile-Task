@@ -20,16 +20,29 @@ import javax.inject.Inject
 class GithubRepositoryImpl @Inject constructor(
     private val githubApi: GithubApi
 ) : GithubRepository{
-    override suspend fun fetchUser(username: String): Resource<GithubUserModel> {
-        return try {
-            val response = githubApi.fetchUser(username)
-            Resource.Success(response.toDomain())
-        } catch(e: IOException) {
-            e.printStackTrace()
-            Resource.Error(message = "Couldn't load user detail: ${e.localizedMessage}")
-        } catch(e: HttpException) {
-            e.printStackTrace()
-            Resource.Error(message = "Couldn't load user info: ${e.localizedMessage}")
+    override suspend fun fetchUser(username: String): Flow<Resource<GithubUserModel>> {
+        return flow {
+            emit(Resource.Loading(true))
+
+            val user = try {
+                val response = githubApi.fetchUser(username)
+                response.toDomain()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error("Couldn't load, Network error: ${e.localizedMessage}"))
+                null
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error("Couldn't load, Network error: ${e.localizedMessage}"))
+                null
+            } catch (e: Exception) {
+                println("Error: ${e.localizedMessage}")
+                emit(Resource.Error("Couldn't load, error: ${e.localizedMessage}"))
+                null
+            }
+            emit(Resource.Success(user))
+            emit(Resource.Loading(false))
         }
     }
 
@@ -99,7 +112,7 @@ class GithubRepositoryImpl @Inject constructor(
                 null
             } catch (e: HttpException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data, Error ${e.localizedMessage}"))
+                emit(Resource.Error("Couldn't load data, Network Error ${e.localizedMessage}"))
                 null
             } catch (e: Exception) {
                 println("Error: ${e.localizedMessage}")

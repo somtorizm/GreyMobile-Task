@@ -68,15 +68,15 @@ fun SearchScreenView(
             model.user?.items?.isEmpty() == true -> {
                 SearchEmptyStateView("We’ve searched the ends of the earth and we’ve not found this user, please try again")
             }
-            model.user?.items == null -> {
+            model.user?.items == null && model.searchQuery.isBlank() -> {
                 SearchEmptyStateView("Search Github for repositories, issues and pull requests!")
             }
             else -> {
                 Spacer(modifier = Modifier.height(40.dp))
 
                 LazyColumn(state = state) {
-                    model.user.items.let { repos ->
-                        items(repos, key = { it.id }) { repo ->
+                    model.user?.items.let { repos ->
+                        items(repos ?: listOf(), key = { it.id }) { repo ->
                             RepoCard(
                                 title = repo.name,
                                 subtitle = repo.owner.login,

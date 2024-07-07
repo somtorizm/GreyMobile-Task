@@ -24,9 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.ui.theme.CardBackground1
@@ -37,6 +39,7 @@ fun TagItem(tag: String) {
         text = tag,
         color = Color.Black,
         maxLines = 1,
+        fontSize = 10.sp,
         modifier = Modifier
             .background(color = CardBackground1, shape = RoundedCornerShape(8.dp))
             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -119,6 +122,7 @@ fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language:
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
         )
+        , shape = RoundedCornerShape(5.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Header(title = title, subtitle = subtitle, url = url, stars = stars, language = language)

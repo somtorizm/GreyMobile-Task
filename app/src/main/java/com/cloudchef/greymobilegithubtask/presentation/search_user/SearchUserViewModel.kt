@@ -20,7 +20,7 @@ class SearchUserViewModel @Inject constructor(
 ) : ViewModel() {
 
     var state by mutableStateOf(SearchUserState())
-    private var searchJob: Job? = null
+    var searchJob: Job? = null
 
     fun onEvent(event: SearchEvent) {
         when(event) {
@@ -28,7 +28,6 @@ class SearchUserViewModel @Inject constructor(
                 state = state.copy(searchQuery = event.query)
                 searchJob?.cancel()
                 searchJob = viewModelScope.launch {
-                    delay(500L)
                     getRepositoryList()
                 }
             }
@@ -39,20 +38,20 @@ class SearchUserViewModel @Inject constructor(
         query: String = state.searchQuery.lowercase(),
     ) {
         viewModelScope.launch {
+            if (query.isBlank()) return@launch
             repository
                 .searchUser( query)
                 .collect { result ->
                     when(result) {
                         is Resource.Success -> {
-                            result.data?.let { listings ->
-                                state = state.copy(
-                                    user = listings
-                                )
+                            result.data?.let { userRepos ->
+                                state = state.copy(user = userRepos, isLoading = false, error = null)
                             }
                             searchJob?.cancel()
                         }
                         is Resource.Error -> {
                             searchJob?.cancel()
+                            state = state.copy(isLoading = false, error = result.message, user = null)
                         }
                         is Resource.Loading -> {
                             state = state.copy(isLoading = result.isLoading)
@@ -62,7 +61,7 @@ class SearchUserViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         searchJob?.cancel()
     }

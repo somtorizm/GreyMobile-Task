@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloudchef.greymobilegithubtask.R
 import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
+import com.cloudchef.greymobilegithubtask.presentation.navigateToScreen
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 
 @Composable
@@ -49,7 +50,7 @@ fun HomeScreenView(modifier: Modifier, navController: NavController) {
                 title = "Users",
                 icon = painterResource(id = R.drawable.user_card),
                 onClick = {
-                    navController.navigate(ScreenNav.Users.id)
+                    navigateToScreen(ScreenNav.Users.id, navController)
                 },
                 backgroundColor = colorResource(id = R.color.light_grey),
                 modifier = Modifier.weight(1f)
@@ -58,9 +59,7 @@ fun HomeScreenView(modifier: Modifier, navController: NavController) {
             HomeCard(
                 title = "Repositories",
                 icon = painterResource(id = R.drawable.repo_icon),
-                onClick = {
-                    navController.navigate(ScreenNav.Search.id)
-                          },
+                onClick = { navigateToScreen(ScreenNav.Search.id, navController) },
                 backgroundColor = colorResource(id = R.color.light_purple),
                 modifier = Modifier.weight(1f)
             )
