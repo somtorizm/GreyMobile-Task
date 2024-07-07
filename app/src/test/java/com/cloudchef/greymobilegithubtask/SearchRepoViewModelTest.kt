@@ -6,6 +6,7 @@ import com.cloudchef.greymobilegithubtask.domain.model.GithubRepoModel
 import com.cloudchef.greymobilegithubtask.domain.model.Owner
 import com.cloudchef.greymobilegithubtask.domain.model.Repository
 import com.cloudchef.greymobilegithubtask.domain.repository.GithubRepository
+import com.cloudchef.greymobilegithubtask.models.createUserRepos
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchEvent
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchViewModel
 import io.mockk.coEvery
@@ -23,7 +24,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SearchViewModelTest {
+class SearchRepoViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -46,16 +47,8 @@ class SearchViewModelTest {
     fun `onEvent Search should update state and trigger search`() = runTest {
         val searchQuery = "kotlin"
         val name = "Victor"
-        val list = listOf(
-            Repository(
-                1, "Victor", "Ezinwa Victor",
-                Owner("Somto", 1, "https://Image.png", "organisation"),
-                false, "", fork = false, defaultBranch = "",
-                url = "", stargazersCount = 20, watchersCount = 60,
-                forksCount = 10, openIssuesCount = 20, size = 20,
-                pushedAt = "", createdAt = "", updatedAt = "", topics = listOf()))
+        val list = createUserRepos()
 
-        val listSize =  list.size
         val userRepos = GithubRepoModel(20, false, list)
 
         coEvery { repository.fetchRepo(searchQuery.lowercase()) } returns flowOf(
@@ -69,7 +62,7 @@ class SearchViewModelTest {
         runCurrent()
 
         coVerify { repository.fetchRepo(searchQuery.lowercase()) }
-        assertEquals(listSize, viewModel.state.user!!.items.size)
+        assertEquals(list.size, viewModel.state.user!!.items.size)
         assertEquals(name, viewModel.state.user!!.items[0].name )
         assertEquals(searchQuery, viewModel.state.searchQuery)
         assertEquals(userRepos, viewModel.state.user)

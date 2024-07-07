@@ -55,9 +55,10 @@ class SearchUserViewModelTest {
 
 
         coEvery { repository.searchUser(searchQuery.lowercase()) } returns flowOf(
+            Resource.Loading(true),
+            Resource.Success(modelList),
             Resource.Loading(false),
-            Resource.Success(modelList)
-        )
+            )
 
         viewModel.onEvent(SearchEvent.OnSearchQueryChange(searchQuery))
 

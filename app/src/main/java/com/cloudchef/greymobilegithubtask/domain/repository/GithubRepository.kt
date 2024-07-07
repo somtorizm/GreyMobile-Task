@@ -8,7 +8,7 @@ import com.cloudchef.greymobilegithubtask.domain.model.Repository
 import kotlinx.coroutines.flow.Flow
 
 interface GithubRepository  {
-    suspend fun fetchUser(username: String): Resource<GithubUserModel>
+    suspend fun fetchUser(username: String): Flow<Resource<GithubUserModel>>
 
     suspend fun fetchRepo(query: String): Flow<Resource<GithubRepoModel?>>
 

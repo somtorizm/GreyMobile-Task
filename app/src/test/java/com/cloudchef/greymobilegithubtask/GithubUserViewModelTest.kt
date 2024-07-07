@@ -3,11 +3,9 @@ package com.cloudchef.greymobilegithubtask
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import com.cloudchef.greymobilegithubtask.common.Resource
-import com.cloudchef.greymobilegithubtask.domain.model.GithubUserModel
-import com.cloudchef.greymobilegithubtask.domain.model.Owner
-import com.cloudchef.greymobilegithubtask.domain.model.Repository
 import com.cloudchef.greymobilegithubtask.domain.repository.GithubRepository
-import com.cloudchef.greymobilegithubtask.presentation.search_user.SearchUserViewModel
+import com.cloudchef.greymobilegithubtask.models.createGithubUserModel
+import com.cloudchef.greymobilegithubtask.models.createUserRepos
 import com.cloudchef.greymobilegithubtask.presentation.user_detail.GithubUserViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -16,10 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -42,7 +38,6 @@ class GithubUserViewModelTest  {
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        viewModel = GithubUserViewModel(repository, savedStateHandle)
     }
 
     @After
@@ -52,48 +47,16 @@ class GithubUserViewModelTest  {
 
     @Test
     fun `init should fetch user and user repos`() = runTest {
-        val model = GithubUserModel(
-            login = "Somto",
-            id = 1,
-            nodeId = "1",
-            avatarUrl = "https://victor.png",
-            url = "",
-            followersUrl = "",
-            receivedEventsUrl = "",
-            reposUrl = "",
-            organizationsUrl = "",
-            eventsUrl = "",
-            subscriptionsUrl = "",
-            gistsUrl = "",
-            starredUrl = "",
-            siteAdmin = false,
-            htmlUrl = "",
-            type = "",
-            publicGists = 20,
-            followers = 20,
-            following = 45,
-            createdAt = "",
-            updatedAt = "",
-            publicRepos = 3,
-            hireable = false,
-            email = "",
-            location = "",
-            blog = "",
-            company = "",
-            twitterUsername = "",
-            gravatarId = "",
-            followingUrl = ""
+        viewModel = GithubUserViewModel(repository, savedStateHandle)
+        val model = createGithubUserModel()
+        val userRepos = createUserRepos()
+
+        coEvery { repository.fetchUser("victor") } returns flowOf(
+            Resource.Loading(true),
+            Resource.Success(model),
+            Resource.Loading(false)
         )
 
-        val userRepos = listOf(Repository(
-                    1, "Victor", "Ezinwa Victor",
-                    Owner("Somto", 1, "https://Image.png", "organisation"),
-                    false, "", fork = false, defaultBranch = "",
-                    url = "", stargazersCount = 20, watchersCount = 60,
-                    forksCount = 10, openIssuesCount = 20, size = 20,
-                    pushedAt = "", createdAt = "", updatedAt = "", topics = listOf()))
-
-        coEvery { repository.fetchUser("victor") } returns Resource.Success(model)
         coEvery { repository.fetchUserRepo("victor") } returns flowOf(
             Resource.Loading(true),
             Resource.Success(userRepos),

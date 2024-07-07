@@ -18,10 +18,9 @@ import javax.inject.Inject
 class GithubUserViewModel @Inject constructor(
     private val repository: GithubRepository,
     private val savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
     var state by mutableStateOf(UserViewState())
-    private var searchJob: Job? = null
 
     init {
         fetchUser()
@@ -32,71 +31,46 @@ class GithubUserViewModel @Inject constructor(
         viewModelScope.launch {
             val id = savedStateHandle.get<String>("userId") ?: return@launch
             state = state.copy(isLoading = true)
-            val userInfo = async { repository.fetchUser(id) }.await()
-            when(userInfo) {
-                is Resource.Success -> {
-                    state = state.copy(
-                        user = userInfo.data,
-                        isLoading = false,
-                        error = null
-                    )
-                }
 
-                is Resource.Error -> {
-                    state = state.copy(
-                        isLoading = false,
-                        error = userInfo.message,
-                        user = null
-                    )
-                }
+            repository.fetchUser(id).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { user ->
+                            state = state.copy(user = user, isLoading = false, error = null)
+                        }
 
-                is Resource.Loading -> {
-                    state = state.copy(
-                        isLoading = true,
-                        error = userInfo.message,
-                        user = null
-                    )
+                    }
+                    is Resource.Error -> {
+                        state = state.copy(isLoading = false, error = result.message ?: "Unknown error", usersRepo = null)
+                    }
+                    is Resource.Loading -> {
+                        state = state.copy(isLoading = result.isLoading, error = null)
+                    }
                 }
             }
-            }
+        }
     }
 
     private fun fetchUserRepo() {
-        val id = savedStateHandle.get<String>("userId")
+        viewModelScope.launch {
+            val id = savedStateHandle.get<String>("userId") ?: return@launch
 
-        searchJob = viewModelScope.launch {
-            state = state.copy(isLoading = true)
+            repository.fetchUserRepo(id).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        result.data?.let { repos ->
+                            state = state.copy(usersRepo = repos, isLoading = false, error = null)
+                        }
 
-           repository
-               .fetchUserRepo(id.toString())
-               .collect { result ->
-                   when(result) {
-                       is Resource.Success -> {
-                           result.data?.let { repos ->
-                               state = state.copy(
-                                   usersRepo = repos,
-                                   isLoading = false,
-                                   error = null
-                               )
-                           }
-                           searchJob?.cancel()
-                       }
-                       is Resource.Error -> {
-                           state = state.copy(
-                               isLoading = false,
-                               error = result.message ?: "Unknown error",
-                               usersRepo = null
-                           )
-                           searchJob?.cancel()
-                       }
-                       is Resource.Loading -> {
-                           state = state.copy(
-                               isLoading = result.isLoading,
-                               usersRepo = null,
-                               error = null)
-                       }
-                   }
-               }
+                    }
+                    is Resource.Error -> {
+                        state = state.copy(isLoading = false, error = result.message ?: "Unknown error", usersRepo = null)
+                    }
+                    is Resource.Loading -> {
+                        state = state.copy(isLoading = result.isLoading, error = null)
+                    }
+                }
+            }
         }
     }
 }
