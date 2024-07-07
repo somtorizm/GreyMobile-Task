@@ -88,7 +88,6 @@ fun SearchScreenView(
                                 description = repo.description ?: "",
                                 tags = repo.topics.take(4)
                             ) {
-
                             }
                         }
                     }
@@ -100,7 +99,7 @@ fun SearchScreenView(
 }
 
 @Composable
-fun SearchEmptyStateView(message: String) {
+fun SearchEmptyStateView(message: String, imageId: Int? = R.drawable.search) {
     Box(modifier = Modifier
         .fillMaxSize()) {
         Column (
@@ -109,7 +108,7 @@ fun SearchEmptyStateView(message: String) {
             verticalArrangement = Arrangement.Center){
 
             Icon(
-                painter = painterResource(id = R.drawable.search),
+                painter = painterResource(id = imageId!!),
                 contentDescription = "No result found,",
                 modifier = Modifier
                     .fillMaxHeight(0.4f)

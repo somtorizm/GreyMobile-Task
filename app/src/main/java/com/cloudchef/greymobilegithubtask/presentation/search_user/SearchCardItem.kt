@@ -106,13 +106,13 @@ fun Description(text: String) {
 }
 
 @Composable
-fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language: String, description: String, tags: List<String>, onClick: () -> Unit) {
+fun RepoCard(title: String, subtitle: String, url: String, stars: Int, language: String, description: String, tags: List<String>, onClick: (id: String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
             .padding(top = 10.dp)
-            .clickable { onClick() },
+            .clickable { onClick(title) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface
         ),

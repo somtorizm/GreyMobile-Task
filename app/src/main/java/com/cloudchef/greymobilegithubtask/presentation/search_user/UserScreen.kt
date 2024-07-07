@@ -1,5 +1,6 @@
 package com.cloudchef.greymobilegithubtask.presentation.search_user
 
+import android.os.Bundle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchBar
@@ -82,7 +84,8 @@ fun UserScreen(
                                 description = "",
                                 tags = listOf(repo.type)
                             ) {
-                                navController.navigate("profile")
+                                navController.navigate("profile/$it") {
+                            }
                             }
                         }
                     }

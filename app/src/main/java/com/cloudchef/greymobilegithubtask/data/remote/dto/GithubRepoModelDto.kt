@@ -75,7 +75,6 @@ data class RepositoryDto(
 
     @SerialName("default_branch")
     val defaultBranch: String,
-    val score: Float
 ) {
     companion object {
         fun RepositoryDto.toDomain() : Repository {
@@ -83,7 +82,7 @@ data class RepositoryDto(
                 private, htmlUrl, description, fork, url, createdAt,
                 updatedAt, pushedAt, homepage, size, topics, stargazersCount,
                 watchersCount, language, forksCount, openIssuesCount,
-                masterBranch, defaultBranch, score )
+                masterBranch, defaultBranch )
         }
     }
 }

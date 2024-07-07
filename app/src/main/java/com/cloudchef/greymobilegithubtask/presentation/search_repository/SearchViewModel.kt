@@ -44,9 +44,9 @@ class SearchViewModel@Inject constructor(
                 .collect { result ->
                     when(result) {
                         is Resource.Success -> {
-                            result.data?.let { listings ->
+                            result.data?.let { userRepos ->
                                 state = state.copy(
-                                    user = listings
+                                    user = userRepos
                                 )
                             }
                             searchJob?.cancel()

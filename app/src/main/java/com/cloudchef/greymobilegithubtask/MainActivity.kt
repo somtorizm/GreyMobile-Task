@@ -16,10 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.cloudchef.greymobilegithubtask.presentation.BottomNavigation
 import com.cloudchef.greymobilegithubtask.presentation.home.HomeScreen
 import com.cloudchef.greymobilegithubtask.presentation.ScreenNav
@@ -79,8 +81,9 @@ class MainActivity : ComponentActivity() {
                         composable(ScreenNav.Users.id) {
                             UserScreen(navController = navController)
                         }
-                        composable("profile") {
-                            UserProfileScreen()
+                        composable("profile/{userId}",
+                            arguments = listOf(navArgument("userId") { type = NavType.StringType })) {
+                            UserProfileScreen(navController)
                         }
                     }
                 }

@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomNavigation(
-    currentScreenId:String,
-    onItemSelected:(ScreenNav)->Unit
+    currentScreenId: String,
+    onItemSelected: (ScreenNav)->Unit
 ) {
     val currentScreenIdState by rememberUpdatedState(currentScreenId)
     val onItemSelectedState by rememberUpdatedState(onItemSelected)
