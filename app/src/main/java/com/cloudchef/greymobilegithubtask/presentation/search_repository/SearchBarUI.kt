@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.repositories_list
+package com.cloudchef.greymobilegithubtask.presentation.search_repository
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -25,7 +25,7 @@ import com.cloudchef.greymobilegithubtask.ui.theme.GreyMobileGithubTaskTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(querySearch: (query: String) -> Unit) {
+fun SearchBar(textFieldPlaceHolder: String, querySearch: (query: String) -> Unit) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
     GreyMobileGithubTaskTheme {
@@ -45,7 +45,7 @@ fun SearchBar(querySearch: (query: String) -> Unit) {
                 onValueChange = {
                     searchQuery = it
                 },
-                placeholder = { Text("Search for users...", color = Color.Gray) },
+                placeholder = { Text(textFieldPlaceHolder, color = Color.Gray) },
                 leadingIcon = {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.search),
@@ -59,7 +59,10 @@ fun SearchBar(querySearch: (query: String) -> Unit) {
                     .border(width = 0.dp, color = Color.Transparent),
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(
-                   containerColor = Color.Transparent
+                   containerColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
                 )
             )
 

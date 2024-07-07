@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.repositories_list
+package com.cloudchef.greymobilegithubtask.presentation.search_user
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cloudchef.greymobilegithubtask.common.Resource
 import com.cloudchef.greymobilegithubtask.domain.repository.GithubRepository
+import com.cloudchef.greymobilegithubtask.presentation.search_repository.SearchEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -14,13 +15,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel@Inject constructor(
-    private val repository: GithubRepository): ViewModel() {
+class SearchUserViewModel @Inject constructor(
+    private val repository: GithubRepository
+) : ViewModel() {
 
-    var state by mutableStateOf(SearchViewState())
-
+    var state by mutableStateOf(SearchUserState())
     private var searchJob: Job? = null
-
 
     fun onEvent(event: SearchEvent) {
         when(event) {
@@ -40,7 +40,7 @@ class SearchViewModel@Inject constructor(
     ) {
         viewModelScope.launch {
             repository
-                .fetchRepo( query)
+                .searchUser( query)
                 .collect { result ->
                     when(result) {
                         is Resource.Success -> {

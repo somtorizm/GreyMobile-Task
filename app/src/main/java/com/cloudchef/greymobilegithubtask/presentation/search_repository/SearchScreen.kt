@@ -1,4 +1,4 @@
-package com.cloudchef.greymobilegithubtask.presentation.repositories_list
+package com.cloudchef.greymobilegithubtask.presentation.search_repository
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cloudchef.greymobilegithubtask.R
-import com.cloudchef.greymobilegithubtask.presentation.user_detail.RepoCard
+import com.cloudchef.greymobilegithubtask.presentation.home.Title
+import com.cloudchef.greymobilegithubtask.presentation.search_user.RepoCard
 
 @Composable
 fun SearchScreen() {
@@ -48,15 +49,12 @@ fun SearchScreenView(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = "Repositories",
-            fontSize = 18.sp,
-            modifier = Modifier
-        )
+
+        Title(title = "Repositories")
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        SearchBar {
+        SearchBar("Search for repositories") {
             viewModel.onEvent(SearchEvent.OnSearchQueryChange(it))
         }
 
@@ -77,7 +75,7 @@ fun SearchScreenView(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 LazyColumn(state = state) {
-                    model.user?.items?.let { repos ->
+                    model.user.items.let { repos ->
                         items(repos, key = { it.id }) { repo ->
                             RepoCard(
                                 title = repo.name,
@@ -87,7 +85,8 @@ fun SearchScreenView(
                                 language = repo.language ?: "",
                                 description = repo.description ?: "",
                                 tags = repo.topics.take(4)
-                            )
+                            ) {
+                            }
                         }
                     }
                 }
@@ -98,25 +97,25 @@ fun SearchScreenView(
 }
 
 @Composable
-fun SearchEmptyStateView(message: String) {
+fun SearchEmptyStateView(message: String, imageId: Int? = R.drawable.search) {
     Box(modifier = Modifier
         .fillMaxSize()) {
         Column (
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center){
 
             Icon(
-                painter = painterResource(id = R.drawable.search),
+                painter = painterResource(id = imageId!!),
                 contentDescription = "No result found,",
                 modifier = Modifier
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.2f)
                     .fillMaxWidth())
 
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = message,
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 textAlign = TextAlign.Center,
             )
         }

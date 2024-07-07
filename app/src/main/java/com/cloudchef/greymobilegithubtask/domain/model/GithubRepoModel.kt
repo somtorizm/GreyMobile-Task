@@ -29,10 +29,11 @@ data class Repository(
     val openIssuesCount: Int,
     val masterBranch: String? = null,
     val defaultBranch: String,
-    val score: Float
 )
+
 data class Owner(
     val login: String,
     val id: Int,
     val avatarUrl: String,
-)
+    val type: String,
+    )

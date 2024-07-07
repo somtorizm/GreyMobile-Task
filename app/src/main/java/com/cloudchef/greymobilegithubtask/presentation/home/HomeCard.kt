@@ -34,7 +34,7 @@ fun HomeCard(
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(start = 38.dp)
+            modifier = Modifier.padding(start = 10.dp)
         ) {
             Icon(
                 painter = icon,
