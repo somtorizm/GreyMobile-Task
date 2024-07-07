@@ -18,10 +18,10 @@ The app is built using the Model-View-ViewModel (MVVM) architecture, which promo
 The project is structured as follows:
 - `data`: Contains data models and repository classes for network operations.
 - `di`: Contains Dagger Hilt modules for dependency injection.
-- `network`: Contains Retrofit service interfaces and network-related classes.
-- `ui`: Contains all UI-related components, including screens and composables.
+- `remote`: Contains Retrofit service interfaces and network-related classes.
+- `presentation`: Contains all UI-related components, including screens and composables.
 - `viewmodel`: Contains ViewModel classes to handle UI logic and data.
-- `util`: Contains utility classes and functions.
+- `common`: Contains utility classes and functions.
 
 ## Screenshots
 
