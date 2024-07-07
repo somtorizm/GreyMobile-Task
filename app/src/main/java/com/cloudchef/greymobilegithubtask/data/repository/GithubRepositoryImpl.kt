@@ -99,7 +99,7 @@ class GithubRepositoryImpl @Inject constructor(
                 null
             } catch (e: HttpException) {
                 e.printStackTrace()
-                emit(Resource.Error("Couldn't load data, Error ${e.localizedMessage}"))
+                emit(Resource.Error("Couldn't load data, Network Error ${e.localizedMessage}"))
                 null
             } catch (e: Exception) {
                 println("Error: ${e.localizedMessage}")
