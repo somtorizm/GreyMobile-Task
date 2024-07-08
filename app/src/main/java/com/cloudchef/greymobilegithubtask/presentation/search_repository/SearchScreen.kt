@@ -66,7 +66,7 @@ fun SearchScreenView(
                 SearchEmptyStateView("An error occurred: ${model.error}")
             }
             model.user?.items?.isEmpty() == true -> {
-                SearchEmptyStateView("We’ve searched the ends of the earth and we’ve not found this user, please try again")
+                SearchEmptyStateView("We’ve searched the ends of the earth and we’ve not found this repository, please try again")
             }
             model.user?.items == null && model.searchQuery.isBlank() -> {
                 SearchEmptyStateView("Search Github for repositories, issues and pull requests!")
