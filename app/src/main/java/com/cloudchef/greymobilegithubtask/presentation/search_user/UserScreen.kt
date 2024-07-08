@@ -46,7 +46,7 @@ fun UserScreen(
 
         when {
             model.isLoading -> {
-                SearchEmptyStateView("Searching Github for Repositories")
+                SearchEmptyStateView("Searching Github for Users profile")
             }
 
             model.error != null -> {
@@ -58,7 +58,7 @@ fun UserScreen(
             }
 
             model.user?.items == null && model.searchQuery.isBlank() -> {
-                SearchEmptyStateView("Search Github for repositories, issues and pull requests!")
+                SearchEmptyStateView("Search Github for Users profile")
             }
 
             else -> {
